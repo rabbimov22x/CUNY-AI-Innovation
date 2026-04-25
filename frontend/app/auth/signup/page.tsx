@@ -70,19 +70,19 @@ function SignupForm() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
-      <Card className="w-full max-w-md">
+    <div className="min-h-screen bg-[#080810] flex items-center justify-center p-4">
+      <Card className="w-full max-w-md bg-white/5 border-white/10 backdrop-blur-md">
         <CardHeader className="text-center">
           <CardTitle className="text-2xl">Create your account</CardTitle>
           <CardDescription>Join StartNow and get started</CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="flex rounded-lg border p-1 mb-6">
+          <div className="flex rounded-lg border border-white/10 bg-white/5 p-1 mb-6">
             <button
               type="button"
               onClick={() => setRole("student")}
               className={`flex-1 flex items-center justify-center gap-2 py-2 rounded-md text-sm font-medium transition-colors ${
-                role === "student" ? "bg-blue-600 text-white" : "text-gray-600 hover:text-gray-900"
+                role === "student" ? "bg-violet-600 text-white" : "text-white/60 hover:text-white"
               }`}
             >
               <GraduationCap className="h-4 w-4" />
@@ -92,7 +92,7 @@ function SignupForm() {
               type="button"
               onClick={() => setRole("employer")}
               className={`flex-1 flex items-center justify-center gap-2 py-2 rounded-md text-sm font-medium transition-colors ${
-                role === "employer" ? "bg-orange-500 text-white" : "text-gray-600 hover:text-gray-900"
+                role === "employer" ? "bg-violet-600 text-white" : "text-white/60 hover:text-white"
               }`}
             >
               <Briefcase className="h-4 w-4" />
@@ -122,7 +122,7 @@ function SignupForm() {
                 required
               />
               {role === "student" && (
-                <p className="text-xs text-gray-500 mt-1">Must be a .cuny.edu address</p>
+                <p className="text-xs text-white/45 mt-1">Must be a .cuny.edu address</p>
               )}
             </div>
             <div>
@@ -138,13 +138,13 @@ function SignupForm() {
             </div>
 
             {error && (
-              <div className="bg-red-50 border border-red-200 text-red-700 text-sm p-3 rounded-md">
+              <div className="bg-red-500/10 border border-red-400/40 text-red-200 text-sm p-3 rounded-md">
                 {error}
               </div>
             )}
 
             {success && (
-              <div className="bg-green-50 border border-green-200 text-green-700 text-sm p-3 rounded-md">
+              <div className="bg-emerald-500/10 border border-emerald-400/40 text-emerald-200 text-sm p-3 rounded-md">
                 {success}
               </div>
             )}
@@ -154,9 +154,9 @@ function SignupForm() {
             </Button>
           </form>
 
-          <p className="text-center text-sm text-gray-500 mt-4">
+          <p className="text-center text-sm text-white/45 mt-4">
             Already have an account?{" "}
-            <Link href="/auth/login" className="text-blue-600 hover:underline">
+            <Link href="/auth/login" className="text-violet-300 hover:underline">
               Log in
             </Link>
           </p>

@@ -117,14 +117,14 @@ export default function MatchPage() {
   // ── Accepted state ──────────────────────────────────────────
   if (accepted && card) {
     return (
-      <div className="min-h-screen bg-[#faf8ff] flex flex-col">
-        <div className="bg-white border-b border-[#e1e2ed] sticky top-0 z-40">
+      <div className="min-h-screen bg-[#080810] flex flex-col text-white">
+        <div className="bg-[#0b0c18]/90 backdrop-blur-md border-b border-white/10 sticky top-0 z-40">
           <div className="container mx-auto px-4 max-w-lg h-16 flex items-center justify-between">
-            <Link href="/student/dashboard" className="flex items-center gap-1.5 text-[#434655] hover:text-[#004ac6]">
+            <Link href="/student/dashboard" className="flex items-center gap-1.5 text-white/65 hover:text-violet-300">
               <ArrowLeft className="h-4 w-4" />
               <span className="text-sm font-medium">Dashboard</span>
             </Link>
-            <div className="flex items-center gap-2 font-bold text-lg text-[#004ac6]">
+            <div className="flex items-center gap-2 font-bold text-lg text-violet-300">
               <GraduationCap className="h-5 w-5" />
               StartNow
             </div>
@@ -137,8 +137,8 @@ export default function MatchPage() {
             <CheckCircle2 className="h-8 w-8 text-green-600" />
           </div>
           <div>
-            <h1 className="text-2xl font-bold text-[#191b23]">You're matched!</h1>
-            <p className="text-[#434655] text-sm mt-2 max-w-xs mx-auto">
+            <h1 className="text-2xl font-bold text-white">You're matched!</h1>
+            <p className="text-white/60 text-sm mt-2 max-w-xs mx-auto">
               You've been matched with <span className="font-semibold">{card.brief.title}</span>. Now introduce yourself to the employer.
             </p>
           </div>
@@ -149,7 +149,7 @@ export default function MatchPage() {
             Send Intro Message
             <ChevronRight className="ml-2 h-4 w-4" />
           </Button>
-          <Link href="/student/dashboard" className="text-sm text-[#737686] hover:text-[#004ac6] underline">
+          <Link href="/student/dashboard" className="text-sm text-white/45 hover:text-violet-300 underline">
             Do this later
           </Link>
         </div>
@@ -158,20 +158,20 @@ export default function MatchPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#faf8ff] flex flex-col">
+    <div className="min-h-screen bg-[#080810] flex flex-col text-white">
 
       {/* Header */}
-      <div className="bg-white border-b border-[#e1e2ed] sticky top-0 z-40">
+      <div className="bg-[#0b0c18]/90 backdrop-blur-md border-b border-white/10 sticky top-0 z-40">
         <div className="container mx-auto px-4 max-w-lg h-16 flex items-center justify-between">
-          <Link href="/student/dashboard" className="flex items-center gap-1.5 text-[#434655] hover:text-[#004ac6]">
+          <Link href="/student/dashboard" className="flex items-center gap-1.5 text-white/65 hover:text-violet-300">
             <ArrowLeft className="h-4 w-4" />
             <span className="text-sm font-medium">Back</span>
           </Link>
-          <div className="flex items-center gap-2 font-bold text-lg text-[#004ac6]">
+          <div className="flex items-center gap-2 font-bold text-lg text-violet-300">
             <GraduationCap className="h-5 w-5" />
             StartNow
           </div>
-          <div className="w-16 text-right text-xs text-[#737686]">
+          <div className="w-16 text-right text-xs text-white/45">
             {!loading && !done && matches.length > 1 && `${current + 1} / ${matches.length}`}
           </div>
         </div>
@@ -185,8 +185,8 @@ export default function MatchPage() {
             <div className="h-16 w-16 rounded-full bg-[#dbe1ff] flex items-center justify-center mx-auto">
               <Sparkles className="h-7 w-7 text-[#004ac6] animate-pulse" />
             </div>
-            <p className="font-semibold text-[#191b23]">Finding your best match...</p>
-            <p className="text-sm text-[#737686]">
+            <p className="font-semibold text-white">Finding your best match...</p>
+            <p className="text-sm text-white/50">
               Claude is reviewing open projects against your skills and background.
             </p>
             <Loader2 className="h-5 w-5 text-[#004ac6] animate-spin mx-auto mt-2" />
@@ -209,8 +209,8 @@ export default function MatchPage() {
             <div className="h-16 w-16 rounded-full bg-[#f3f3fe] flex items-center justify-center mx-auto">
               <Sparkles className="h-7 w-7 text-[#004ac6]/40" />
             </div>
-            <p className="font-bold text-xl text-[#191b23]">No new matches right now</p>
-            <p className="text-sm text-[#737686] max-w-xs mx-auto">
+            <p className="font-bold text-xl text-white">No new matches right now</p>
+            <p className="text-sm text-white/50 max-w-xs mx-auto">
               Check back soon — new project briefs are posted regularly.
             </p>
             <Button className="bg-[#004ac6] hover:bg-[#003ea8] text-white rounded-xl" onClick={() => router.push("/student/dashboard")}>
@@ -234,10 +234,10 @@ export default function MatchPage() {
             )}
 
             {/* AI reason */}
-            <p className="text-center text-sm text-[#434655] italic">"{card.reason}"</p>
+            <p className="text-center text-sm text-white/65 italic">"{card.reason}"</p>
 
             {/* Card */}
-            <div className="bg-white rounded-3xl border border-[#e1e2ed] shadow-sm overflow-hidden">
+            <div className="bg-white/5 rounded-3xl border border-white/10 shadow-sm overflow-hidden backdrop-blur-sm">
               <div className="bg-[#004ac6] px-6 pt-6 pb-8">
                 <p className="text-[#b4c5ff] text-xs font-semibold uppercase tracking-wide mb-2">
                   Open Project
@@ -248,18 +248,18 @@ export default function MatchPage() {
               </div>
 
               <div className="px-6 py-5 space-y-4">
-                <p className="text-[#434655] text-sm leading-relaxed">
+                <p className="text-white/65 text-sm leading-relaxed">
                   {card.brief.description}
                 </p>
 
                 {card.brief.skills_required?.length > 0 && (
                   <div>
-                    <p className="text-xs font-semibold text-[#737686] uppercase tracking-wide mb-2">
+                    <p className="text-xs font-semibold text-white/45 uppercase tracking-wide mb-2">
                       Skills needed
                     </p>
                     <div className="flex flex-wrap gap-2">
                       {card.brief.skills_required.map((skill) => (
-                        <span key={skill} className="px-2.5 py-1 text-xs font-medium bg-[#dbe1ff]/60 text-[#004ac6] border border-[#b4c5ff]/50 rounded-full">
+                        <span key={skill} className="px-2.5 py-1 text-xs font-medium bg-violet-500/20 text-violet-200 border border-violet-400/30 rounded-full">
                           {skill}
                         </span>
                       ))}
@@ -268,12 +268,12 @@ export default function MatchPage() {
                 )}
 
                 <div className="flex items-center gap-4 pt-1">
-                  <div className="flex items-center gap-1.5 text-sm font-semibold text-[#191b23]">
+                  <div className="flex items-center gap-1.5 text-sm font-semibold text-white">
                     <DollarSign className="h-4 w-4 text-[#007d55]" />
                     ${card.brief.budget?.toLocaleString()}
                   </div>
-                  <div className="h-4 w-px bg-[#e1e2ed]" />
-                  <div className="flex items-center gap-1.5 text-sm text-[#737686]">
+                  <div className="h-4 w-px bg-white/15" />
+                  <div className="flex items-center gap-1.5 text-sm text-white/50">
                     <Clock className="h-4 w-4" />
                     Due {new Date(card.brief.deadline).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}
                   </div>
@@ -294,7 +294,7 @@ export default function MatchPage() {
 
             <button
               onClick={handleSkip}
-              className="w-full text-sm text-[#737686] hover:text-[#004ac6] flex items-center justify-center gap-1 py-1 transition-colors"
+              className="w-full text-sm text-white/45 hover:text-violet-300 flex items-center justify-center gap-1 py-1 transition-colors"
             >
               Show me a different match <ArrowRight className="h-3.5 w-3.5" />
             </button>

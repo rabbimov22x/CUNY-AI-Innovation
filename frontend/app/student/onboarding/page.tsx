@@ -121,18 +121,18 @@ export default function StudentOnboarding() {
   ][step])
 
   return (
-    <div className="min-h-screen bg-[#faf8ff] flex flex-col">
+    <div className="min-h-screen bg-[#080810] flex flex-col text-white">
       {/* Header */}
-      <div className="bg-white border-b px-4 h-16 flex items-center justify-between">
-        <div className="flex items-center gap-2 font-bold text-lg text-[#004ac6]">
+      <div className="bg-[#0b0c18]/90 backdrop-blur-md border-b border-white/10 px-4 h-16 flex items-center justify-between">
+        <div className="flex items-center gap-2 font-bold text-lg text-violet-300">
           <GraduationCap className="h-5 w-5" />
           StartNow
         </div>
-        <span className="text-sm text-gray-400">Step {step + 1} of {STEPS.length}</span>
+        <span className="text-sm text-white/45">Step {step + 1} of {STEPS.length}</span>
       </div>
 
       {/* Progress bar */}
-      <div className="h-1 bg-gray-100">
+      <div className="h-1 bg-white/10">
         <div
           className="h-1 bg-[#004ac6] transition-all duration-500"
           style={{ width: `${((step + 1) / STEPS.length) * 100}%` }}
@@ -145,14 +145,14 @@ export default function StudentOnboarding() {
         <div className="flex items-center gap-2 mb-8 self-start">
           {STEPS.map((label, i) => (
             <div key={label} className="flex items-center gap-2">
-              <div className={`flex items-center gap-1.5 text-sm font-medium ${i === step ? "text-[#004ac6]" : i < step ? "text-green-600" : "text-gray-400"}`}>
+              <div className={`flex items-center gap-1.5 text-sm font-medium ${i === step ? "text-violet-300" : i < step ? "text-emerald-400" : "text-white/40"}`}>
                 {i < step
                   ? <CheckCircle2 className="h-4 w-4" />
-                  : <span className={`h-5 w-5 rounded-full flex items-center justify-center text-xs border ${i === step ? "border-[#004ac6] text-[#004ac6]" : "border-gray-300 text-gray-400"}`}>{i + 1}</span>
+                  : <span className={`h-5 w-5 rounded-full flex items-center justify-center text-xs border ${i === step ? "border-violet-400 text-violet-300" : "border-white/30 text-white/40"}`}>{i + 1}</span>
                 }
                 {label}
               </div>
-              {i < STEPS.length - 1 && <ChevronRight className="h-3 w-3 text-gray-300" />}
+              {i < STEPS.length - 1 && <ChevronRight className="h-3 w-3 text-white/25" />}
             </div>
           ))}
         </div>
@@ -161,14 +161,14 @@ export default function StudentOnboarding() {
         {step === 0 && (
           <div className="w-full space-y-5">
             <div>
-              <h1 className="text-2xl font-bold text-[#191b23]">Set up your profile</h1>
-              <p className="text-gray-500 text-sm mt-1">
+              <h1 className="text-2xl font-bold text-white">Set up your profile</h1>
+              <p className="text-white/50 text-sm mt-1">
                 This helps employers understand who you are and find you faster.
               </p>
             </div>
 
             <div>
-              <label className="block text-sm font-semibold text-[#191b23] mb-1.5">Full name</label>
+              <label className="block text-sm font-semibold text-white mb-1.5">Full name</label>
               <Input
                 value={fullName}
                 onChange={(e) => setFullName(e.target.value)}
@@ -178,11 +178,11 @@ export default function StudentOnboarding() {
             </div>
 
             <div>
-              <label className="block text-sm font-semibold text-[#191b23] mb-1.5">CUNY Campus</label>
+              <label className="block text-sm font-semibold text-white mb-1.5">CUNY Campus</label>
               <select
                 value={school}
                 onChange={(e) => setSchool(e.target.value)}
-                className="w-full h-12 border border-gray-300 rounded-lg px-3 text-sm bg-white text-[#191b23] focus:outline-none focus:ring-2 focus:ring-[#004ac6] focus:border-transparent"
+                className="w-full h-12 border border-white/15 rounded-lg px-3 text-sm bg-white/5 text-white focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-transparent"
               >
                 <option value="">Select your campus</option>
                 {CUNY_SCHOOLS.map((s) => (
@@ -192,7 +192,7 @@ export default function StudentOnboarding() {
             </div>
 
             <div>
-              <label className="block text-sm font-semibold text-[#191b23] mb-1.5">Major</label>
+              <label className="block text-sm font-semibold text-white mb-1.5">Major</label>
               <Input
                 value={major}
                 onChange={(e) => setMajor(e.target.value)}
@@ -207,8 +207,8 @@ export default function StudentOnboarding() {
         {step === 1 && (
           <div className="w-full space-y-5">
             <div>
-              <h1 className="text-2xl font-bold text-[#191b23]">What are your skills?</h1>
-              <p className="text-gray-500 text-sm mt-1">
+              <h1 className="text-2xl font-bold text-white">What are your skills?</h1>
+              <p className="text-white/50 text-sm mt-1">
                 Select everything that applies. This is how our AI matches you to the right projects.
               </p>
             </div>
@@ -221,7 +221,7 @@ export default function StudentOnboarding() {
                   className={`px-3 py-1.5 rounded-full text-sm font-medium border transition-all ${
                     skills.includes(skill)
                       ? "bg-[#004ac6] text-white border-[#004ac6]"
-                      : "bg-white text-[#434655] border-gray-300 hover:border-[#004ac6] hover:text-[#004ac6]"
+                      : "bg-white/5 text-white/70 border-white/20 hover:border-violet-400 hover:text-violet-300"
                   }`}
                 >
                   {skill}
@@ -231,7 +231,7 @@ export default function StudentOnboarding() {
 
             {/* Custom skill input */}
             <div>
-              <label className="block text-sm font-semibold text-[#191b23] mb-1.5">Add a custom skill</label>
+              <label className="block text-sm font-semibold text-white mb-1.5">Add a custom skill</label>
               <div className="flex gap-2">
                 <Input
                   value={customSkill}
@@ -249,12 +249,12 @@ export default function StudentOnboarding() {
             {/* Selected skills */}
             {skills.length > 0 && (
               <div>
-                <p className="text-xs text-gray-400 mb-2">Selected ({skills.length})</p>
+                <p className="text-xs text-white/40 mb-2">Selected ({skills.length})</p>
                 <div className="flex flex-wrap gap-2">
                   {skills.map((skill) => (
                     <span
                       key={skill}
-                      className="flex items-center gap-1 px-3 py-1 bg-blue-50 text-[#004ac6] text-sm rounded-full border border-blue-200"
+                      className="flex items-center gap-1 px-3 py-1 bg-violet-500/20 text-violet-200 text-sm rounded-full border border-violet-400/30"
                     >
                       {skill}
                       <button onClick={() => toggleSkill(skill)} className="ml-0.5 hover:text-red-500">
@@ -272,22 +272,22 @@ export default function StudentOnboarding() {
         {step === 2 && (
           <div className="w-full space-y-5">
             <div>
-              <h1 className="text-2xl font-bold text-[#191b23]">Tell employers about yourself</h1>
-              <p className="text-gray-500 text-sm mt-1">
+              <h1 className="text-2xl font-bold text-white">Tell employers about yourself</h1>
+              <p className="text-white/50 text-sm mt-1">
                 A short intro goes a long way. Keep it direct and confident.
               </p>
             </div>
 
             <div>
-              <label className="block text-sm font-semibold text-[#191b23] mb-1.5">Bio</label>
+              <label className="block text-sm font-semibold text-white mb-1.5">Bio</label>
               <textarea
                 value={bio}
                 onChange={(e) => setBio(e.target.value)}
                 placeholder="e.g. I'm a junior at CCNY studying Computer Science. I've built several web apps and love working on real problems with small businesses."
                 rows={5}
-                className="w-full border border-gray-300 rounded-lg px-4 py-3 text-sm bg-white text-[#191b23] resize-none focus:outline-none focus:ring-2 focus:ring-[#004ac6] focus:border-transparent"
+                className="w-full border border-white/15 rounded-lg px-4 py-3 text-sm bg-white/5 text-white resize-none focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-transparent placeholder:text-white/35"
               />
-              <p className="text-xs text-gray-400 mt-1">{bio.length} characters</p>
+              <p className="text-xs text-white/40 mt-1">{bio.length} characters</p>
             </div>
 
             {error && (
@@ -331,7 +331,7 @@ export default function StudentOnboarding() {
         <button
           onClick={handleSkip}
           disabled={loading}
-          className="mt-4 text-xs text-gray-400 hover:text-gray-600 underline disabled:opacity-50"
+          className="mt-4 text-xs text-white/40 hover:text-white/70 underline disabled:opacity-50"
         >
           Skip for now
         </button>

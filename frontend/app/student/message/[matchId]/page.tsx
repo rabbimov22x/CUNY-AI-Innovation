@@ -154,22 +154,22 @@ export default function MessagePage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#faf8ff] flex flex-col">
+    <div className="min-h-screen bg-[#080810] flex flex-col text-white">
 
       {/* Header */}
-      <div className="bg-white border-b border-[#e1e2ed] sticky top-0 z-40">
+      <div className="bg-[#0b0c18]/90 backdrop-blur-md border-b border-white/10 sticky top-0 z-40">
         <div className="container mx-auto px-4 max-w-lg">
           <div className="h-16 flex items-center gap-3">
-            <Link href="/student/dashboard" className="text-[#434655] hover:text-[#004ac6]">
+            <Link href="/student/dashboard" className="text-white/65 hover:text-violet-300">
               <ArrowLeft className="h-5 w-5" />
             </Link>
             <div className="flex-1 min-w-0">
-              <p className="font-semibold text-[#191b23] text-sm truncate">
+              <p className="font-semibold text-white text-sm truncate">
                 {brief?.title ?? "Loading..."}
               </p>
-              <p className="text-xs text-[#737686]">Employer chat</p>
+              <p className="text-xs text-white/45">Employer chat</p>
             </div>
-            <div className="flex items-center gap-1.5 font-bold text-[#004ac6]">
+            <div className="flex items-center gap-1.5 font-bold text-violet-300">
               <GraduationCap className="h-5 w-5" />
             </div>
           </div>
@@ -181,15 +181,15 @@ export default function MessagePage() {
 
         {/* Brief context pill */}
         {brief && (
-          <div className="bg-[#dbe1ff]/40 border border-[#b4c5ff]/50 rounded-2xl px-4 py-3 text-center">
+          <div className="bg-violet-500/15 border border-violet-400/30 rounded-2xl px-4 py-3 text-center">
             <p className="text-xs font-semibold text-[#004ac6] mb-0.5">Matched Project</p>
-            <p className="text-sm font-bold text-[#191b23]">{brief.title}</p>
-            <p className="text-xs text-[#737686] mt-0.5">${brief.budget?.toLocaleString()} · Due {new Date(brief.deadline).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}</p>
+            <p className="text-sm font-bold text-white">{brief.title}</p>
+            <p className="text-xs text-white/45 mt-0.5">${brief.budget?.toLocaleString()} · Due {new Date(brief.deadline).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}</p>
           </div>
         )}
 
         {messages.length === 0 && !loadingSuggestions && (
-          <p className="text-center text-xs text-[#737686] py-4">
+          <p className="text-center text-xs text-white/45 py-4">
             No messages yet. Send your intro below.
           </p>
         )}
@@ -202,7 +202,7 @@ export default function MessagePage() {
                 className={`max-w-[80%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed ${
                   isMe
                     ? "bg-[#004ac6] text-white rounded-br-sm"
-                    : "bg-white border border-[#e1e2ed] text-[#191b23] rounded-bl-sm"
+                    : "bg-white/5 border border-white/10 text-white rounded-bl-sm"
                 }`}
               >
                 {msg.content}
@@ -219,11 +219,11 @@ export default function MessagePage() {
         <div className="px-4 pb-2 max-w-lg mx-auto w-full">
           <div className="flex items-center gap-1.5 mb-2">
             <Sparkles className="h-3.5 w-3.5 text-[#004ac6]" />
-            <p className="text-xs font-semibold text-[#004ac6]">Suggested openers</p>
+            <p className="text-xs font-semibold text-violet-300">Suggested openers</p>
           </div>
 
           {loadingSuggestions ? (
-            <div className="flex items-center gap-2 text-xs text-[#737686] py-2">
+            <div className="flex items-center gap-2 text-xs text-white/45 py-2">
               <Loader2 className="h-3.5 w-3.5 animate-spin" />
               Claude is writing message suggestions...
             </div>
@@ -233,7 +233,7 @@ export default function MessagePage() {
                 <button
                   key={i}
                   onClick={() => sendMessage(s)}
-                  className="w-full text-left bg-white border border-[#e1e2ed] hover:border-[#004ac6]/40 hover:bg-[#f3f3fe] rounded-xl px-3 py-2.5 text-sm text-[#191b23] transition-colors"
+                  className="w-full text-left bg-white/5 border border-white/10 hover:border-violet-400/40 hover:bg-white/10 rounded-xl px-3 py-2.5 text-sm text-white transition-colors"
                 >
                   {s}
                 </button>
@@ -244,7 +244,7 @@ export default function MessagePage() {
       )}
 
       {/* Input */}
-      <div className="bg-white border-t border-[#e1e2ed] px-4 py-3 max-w-lg mx-auto w-full">
+      <div className="bg-[#0b0c18]/90 border-t border-white/10 px-4 py-3 max-w-lg mx-auto w-full backdrop-blur-md">
         <div className="flex items-end gap-2">
           <textarea
             value={text}
@@ -257,7 +257,7 @@ export default function MessagePage() {
             }}
             placeholder="Write a message..."
             rows={2}
-            className="flex-1 resize-none border border-[#e1e2ed] rounded-xl px-3 py-2 text-sm text-[#191b23] focus:outline-none focus:ring-2 focus:ring-[#004ac6] focus:border-transparent bg-[#faf8ff]"
+            className="flex-1 resize-none border border-white/10 rounded-xl px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-transparent bg-white/5 placeholder:text-white/35"
           />
           <Button
             onClick={() => sendMessage(text)}
