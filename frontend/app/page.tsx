@@ -423,38 +423,14 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Final CTA */}
-      <section className="relative border-t border-white/8 py-28 text-center overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] rounded-full bg-violet-700/15 blur-[100px]" />
-        </div>
-        <div className="container mx-auto px-6 relative z-10">
-          <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-4">
-            Careers — redesigned<br />from the ground up.
-          </h2>
-          <p className="text-white/35 mb-10 text-lg max-w-md mx-auto">
-            Choose your path and get started in minutes.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <Button size="lg" asChild className="bg-white text-black hover:bg-white/90 font-semibold px-8 rounded-full">
-              <Link href="/auth/signup?role=student">Join as a Student</Link>
-            </Button>
-            <Button size="lg" variant="outline" asChild className="border-white/15 text-white hover:bg-white/8 px-8 rounded-full">
-              <Link href="/auth/signup?role=employer">Post a Project</Link>
-            </Button>
-          </div>
-        </div>
-      </section>
-
       {/* Footer */}
-      <footer className="border-t border-white/8 py-10">
-        <div className="container mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-white/25">
-          <span className="font-semibold text-white/50">CUNY Launchpad</span>
-          <p>© {new Date().getFullYear()} CUNY Launchpad. Built at CUNY AI Innovation.</p>
-          <div className="flex gap-6">
-            <Link href="/auth/signup?role=student" className="hover:text-white/50 transition-colors">For Students</Link>
-            <Link href="/auth/signup?role=employer" className="hover:text-white/50 transition-colors">For Employers</Link>
+      <footer className="border-t py-8">
+        <div className="container mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-gray-500">
+          <div className="flex items-center gap-2 font-semibold text-gray-700">
+            <GraduationCap className="h-5 w-5 text-blue-600" />
+            StartNow
           </div>
+          <p>© {new Date().getFullYear()} StartNow. Built at CUNY AI Innovation.</p>
         </div>
       </footer>
     </div>

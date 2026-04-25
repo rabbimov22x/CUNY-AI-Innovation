@@ -5,10 +5,11 @@ import { Button } from "@/components/ui/button"
 
 export default function Navbar() {
   return (
-    <nav className="border-b border-white/8 bg-[#080810]/80 backdrop-blur-md sticky top-0 z-50">
-      <div className="container mx-auto px-6 h-16 flex items-center justify-between">
-        <Link href="/" className="font-semibold text-lg tracking-tight text-white">
-          CUNY Launchpad
+    <nav className="border-b bg-white sticky top-0 z-50">
+      <div className="container mx-auto px-4 h-16 flex items-center justify-between">
+        <Link href="/" className="flex items-center gap-2 font-bold text-xl text-blue-600">
+          <GraduationCap className="h-6 w-6" />
+          StartNow
         </Link>
 
         {/* Pill nav */}
