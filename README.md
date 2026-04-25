@@ -90,7 +90,7 @@ NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=your_stripe_publishable_key
 
 Open two terminals and run each service:
 
-**Backend** (runs on port 8000 by default):
+**Backend** (runs on port 3001):
 
 ```bash
 cd backend
@@ -105,3 +105,5 @@ npm run dev
 ```
 
 Then open [http://localhost:3000](http://localhost:3000) in your browser.
+
+The frontend talks to the backend at `http://localhost:3001`.
