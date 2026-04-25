@@ -1,6 +1,6 @@
 # /design
 
-Use this command when improving the visual design, UX, content structure, or UI polish of the CUNY Launchpad product.
+Use this command when improving the visual design, UX, content structure, or UI polish of the StartNow product.
 
 ## Goal
 

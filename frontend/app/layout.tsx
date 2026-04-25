@@ -5,7 +5,7 @@ import "./globals.css"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "CUNY Launchpad — Real Work. Real Skills. Real Credibility.",
+  title: "StartNow — Real Work. Real Skills. Real Credibility.",
   description:
     "Connecting CUNY students with real freelance opportunities. Build your portfolio from day one.",
 }

@@ -56,7 +56,7 @@ export default function SignupPage() {
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
           <CardTitle className="text-2xl">Create your account</CardTitle>
-          <CardDescription>Join CUNY Launchpad and get started</CardDescription>
+          <CardDescription>Join StartNow and get started</CardDescription>
         </CardHeader>
         <CardContent>
           {/* Role toggle */}

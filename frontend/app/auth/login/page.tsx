@@ -43,7 +43,7 @@ export default function LoginPage() {
             <GraduationCap className="h-10 w-10 text-blue-600" />
           </div>
           <CardTitle className="text-2xl">Welcome back</CardTitle>
-          <CardDescription>Log in to your CUNY Launchpad account</CardDescription>
+          <CardDescription>Log in to your StartNow account</CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleLogin} className="space-y-4">

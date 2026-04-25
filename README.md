@@ -1,6 +1,6 @@
-# CUNY Launchpad
+# StartNow
 
-CUNY Launchpad is an AI-powered contract work platform built for CUNY students and local small businesses. It is a two-sided marketplace that matches verified students with real paid work based on skills, coursework, and employer needs, without relying on unpaid internships, personal networks, or traditional job board filters.
+StartNow is an AI-powered contract work platform built for CUNY students and local small businesses. It is a two-sided marketplace that matches verified students with real paid work based on skills, coursework, and employer needs, without relying on unpaid internships, personal networks, or traditional job board filters.
 
 ## What It Does
 
@@ -17,7 +17,7 @@ The platform also supports team-based contracts. A matched student can invite on
 
 ## Trust, Verification, and Accountability
 
-To protect both students and employers, CUNY Launchpad includes identity verification and platform accountability on both sides:
+To protect both students and employers, StartNow includes identity verification and platform accountability on both sides:
 
 - Students verify with a CUNY email address.
 - Employers verify with a business email address.
@@ -30,7 +30,7 @@ This system is designed to create a trusted marketplace where both students and 
 
 ## Why It Matters
 
-CUNY Launchpad is an equity platform at its core. It exists to address a structural problem that affects many CUNY students, especially first-generation, working, and commuting students who are often excluded from traditional internships and early-career pipelines.
+StartNow is an equity platform at its core. It exists to address a structural problem that affects many CUNY students, especially first-generation, working, and commuting students who are often excluded from traditional internships and early-career pipelines.
 
 Too often, those opportunities are unpaid, network-dependent, and inaccessible to students who already have jobs, family obligations, or limited time to commute. This platform replaces that model with one that is merit-based, paid, and rooted in the CUNY community.
 
@@ -40,7 +40,7 @@ Every completed contract helps students build a verified portfolio of real clien
 
 The long-term goal is to make opportunity more accessible by turning student talent into visible, paid, and verifiable work experience. Instead of waiting for permission through a connection or a traditional internship, students can demonstrate value through real contracts with real local businesses.
 
-In that sense, CUNY Launchpad works like a marketplace engine for upward mobility: matching talent to need, reducing barriers to entry, and helping students graduate with experience that already counts.
+In that sense, StartNow works like a marketplace engine for upward mobility: matching talent to need, reducing barriers to entry, and helping students graduate with experience that already counts.
 
 ## Getting Started
 

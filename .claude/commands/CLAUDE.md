@@ -1,6 +1,6 @@
 # CLAUDE.md
 
-This repository is for `CUNY Launchpad`, an AI-powered contract work platform that connects verified CUNY students with paid project work from local small businesses.
+This repository is for `StartNow`, an AI-powered contract work platform that connects verified CUNY students with paid project work from local small businesses.
 
 ## Product Context
 

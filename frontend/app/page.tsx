@@ -219,9 +219,9 @@ export default function LandingPage() {
         <div className="container mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-gray-500">
           <div className="flex items-center gap-2 font-semibold text-gray-700">
             <GraduationCap className="h-5 w-5 text-blue-600" />
-            CUNY Launchpad
+            StartNow
           </div>
-          <p>© {new Date().getFullYear()} CUNY Launchpad. Built at CUNY AI Innovation.</p>
+          <p>© {new Date().getFullYear()} StartNow. Built at CUNY AI Innovation.</p>
         </div>
       </footer>
     </div>

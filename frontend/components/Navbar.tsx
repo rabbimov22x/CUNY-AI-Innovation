@@ -10,7 +10,7 @@ export default function Navbar() {
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2 font-bold text-xl text-blue-600">
           <GraduationCap className="h-6 w-6" />
-          CUNY Launchpad
+          StartNow
         </Link>
         <div className="flex items-center gap-3">
           <Button variant="ghost" asChild>
