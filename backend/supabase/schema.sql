@@ -12,6 +12,7 @@ create table if not exists profiles (
   major text,
   skills text[] default '{}',
   bio text,
+  resume_url text,
   -- Employer fields
   company_name text,
   website text,

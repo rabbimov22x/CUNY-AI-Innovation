@@ -23,6 +23,12 @@ export default async function StudentDashboard() {
     .eq("id", user.id)
     .single()
 
+  const missingSkills = !Array.isArray(profile?.skills) || profile.skills.length === 0
+  const missingBio = !profile?.bio || profile.bio.trim().length === 0
+  if (missingSkills || missingBio) {
+    redirect("/student/profile?onboarding=1")
+  }
+
   const pendingMatches = (matches ?? []).filter((m) => m.status === "pending")
   const activeMatches = (matches ?? []).filter((m) => m.status === "accepted")
 
@@ -36,9 +42,14 @@ export default async function StudentDashboard() {
             </h1>
             <p className="text-gray-500">Here are your latest matches and projects</p>
           </div>
-          <Button variant="outline" asChild>
-            <Link href="/student/portfolio">View Portfolio</Link>
-          </Button>
+          <div className="flex gap-2">
+            <Button variant="outline" asChild>
+              <Link href="/student/profile">Edit Profile</Link>
+            </Button>
+            <Button variant="outline" asChild>
+              <Link href="/student/portfolio">View Portfolio</Link>
+            </Button>
+          </div>
         </div>
 
         {/* Match notifications */}

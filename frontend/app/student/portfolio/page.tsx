@@ -1,8 +1,10 @@
 import { createClient } from "@/lib/supabase/server"
 import { redirect } from "next/navigation"
+import Link from "next/link"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Star, TrendingUp, DollarSign, Award } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { Star, TrendingUp, DollarSign, Award, FileText } from "lucide-react"
 
 export default async function PortfolioPage() {
   const supabase = createClient()
@@ -40,9 +42,14 @@ export default async function PortfolioPage() {
               {profile?.full_name?.charAt(0) ?? "S"}
             </div>
             <div className="flex-1">
-              <h1 className="text-2xl font-bold text-gray-900">
-                {profile?.full_name ?? "Student"}
-              </h1>
+              <div className="flex items-center justify-between gap-3">
+                <h1 className="text-2xl font-bold text-gray-900">
+                  {profile?.full_name ?? "Student"}
+                </h1>
+                <Button variant="outline" asChild>
+                  <Link href="/student/profile">Edit Profile</Link>
+                </Button>
+              </div>
               <p className="text-gray-500">{profile?.email}</p>
               {profile?.cuny_school && (
                 <p className="text-sm text-gray-500 mt-1">{profile.cuny_school}</p>
@@ -55,6 +62,18 @@ export default async function PortfolioPage() {
                     </Badge>
                   ))}
                 </div>
+              )}
+              {profile?.resume_url ? (
+                <div className="mt-3">
+                  <Button size="sm" variant="outline" asChild>
+                    <a href={profile.resume_url} target="_blank" rel="noreferrer">
+                      <FileText className="h-4 w-4 mr-2" />
+                      View Resume
+                    </a>
+                  </Button>
+                </div>
+              ) : (
+                <p className="text-xs text-gray-400 mt-2">No resume linked yet.</p>
               )}
             </div>
           </div>
