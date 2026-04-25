@@ -69,11 +69,11 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
-      <Card className="w-full max-w-md">
+    <div className="min-h-screen bg-[#080810] flex items-center justify-center p-4">
+      <Card className="w-full max-w-md bg-white/5 border-white/10 backdrop-blur-md">
         <CardHeader className="text-center">
           <div className="flex justify-center mb-2">
-            <GraduationCap className="h-10 w-10 text-blue-600" />
+            <GraduationCap className="h-10 w-10 text-violet-400" />
           </div>
           <CardTitle className="text-2xl">Welcome back</CardTitle>
           <CardDescription>Log in to your StartNow account</CardDescription>
@@ -81,7 +81,7 @@ export default function LoginPage() {
         <CardContent>
           <form onSubmit={handleLogin} className="space-y-4">
             <div>
-              <label className="block text-sm font-medium mb-1">Email</label>
+              <label className="block text-sm font-medium text-white/80 mb-1">Email</label>
               <Input
                 type="email"
                 value={email}
@@ -91,7 +91,7 @@ export default function LoginPage() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium mb-1">Password</label>
+              <label className="block text-sm font-medium text-white/80 mb-1">Password</label>
               <Input
                 type="password"
                 value={password}
@@ -101,7 +101,7 @@ export default function LoginPage() {
             </div>
 
             {error && (
-              <div className="bg-red-50 border border-red-200 text-red-700 text-sm p-3 rounded-md">
+              <div className="bg-red-500/10 border border-red-400/40 text-red-200 text-sm p-3 rounded-md">
                 {error}
               </div>
             )}
@@ -111,9 +111,9 @@ export default function LoginPage() {
             </Button>
           </form>
 
-          <p className="text-center text-sm text-gray-500 mt-4">
+          <p className="text-center text-sm text-white/45 mt-4">
             Don&apos;t have an account?{" "}
-            <Link href="/auth/signup" className="text-blue-600 hover:underline">
+            <Link href="/auth/signup" className="text-violet-300 hover:underline">
               Sign up
             </Link>
           </p>
