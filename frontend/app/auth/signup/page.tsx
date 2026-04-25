@@ -20,6 +20,7 @@ export default function SignupPage() {
   const [fullName, setFullName] = useState("")
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState("")
+  const [success, setSuccess] = useState("")
 
   const supabase = createClient()
 
@@ -27,8 +28,9 @@ export default function SignupPage() {
     e.preventDefault()
     setLoading(true)
     setError("")
+    setSuccess("")
 
-    if (role === "student" && !email.toLowerCase().includes(".cuny.edu")) {
+    if (role === "student" && !/\.cuny\.edu$/i.test(email)) {
       setError("Students must use a CUNY email address (e.g. yourname@citymail.cuny.edu)")
       setLoading(false)
       return
@@ -48,7 +50,31 @@ export default function SignupPage() {
       return
     }
 
-    router.push(role === "student" ? "/student/dashboard" : "/employer/dashboard")
+    const nextRole = role === "employer" ? "/employer/dashboard" : "/student/dashboard"
+    const { data: sessionData } = await supabase.auth.getSession()
+
+    if (!sessionData.session) {
+      setSuccess("Check your email to confirm your account, then log in once verification is complete.")
+      setLoading(false)
+      return
+    }
+
+    const { data: userData } = await supabase.auth.getUser()
+    const user = userData.user
+
+    if (user) {
+      await supabase.from("profiles").upsert(
+        {
+          id: user.id,
+          email: user.email ?? email,
+          full_name: fullName,
+          role,
+        },
+        { onConflict: "id" }
+      )
+    }
+
+    router.push(nextRole)
   }
 
   return (
@@ -127,6 +153,12 @@ export default function SignupPage() {
             {error && (
               <div className="bg-red-50 border border-red-200 text-red-700 text-sm p-3 rounded-md">
                 {error}
+              </div>
+            )}
+
+            {success && (
+              <div className="bg-green-50 border border-green-200 text-green-700 text-sm p-3 rounded-md">
+                {success}
               </div>
             )}
 

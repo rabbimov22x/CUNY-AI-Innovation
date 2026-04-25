@@ -31,7 +31,31 @@ export default function LoginPage() {
       return
     }
 
-    const role = data.user?.user_metadata?.role
+    const user = data.user
+    let role = user?.user_metadata?.role as "student" | "employer" | undefined
+
+    if (user) {
+      const { data: profile } = await supabase
+        .from("profiles")
+        .select("role")
+        .eq("id", user.id)
+        .maybeSingle()
+
+      role = (profile?.role as "student" | "employer" | undefined) ?? role
+
+      if (!profile) {
+        await supabase.from("profiles").upsert(
+          {
+            id: user.id,
+            email: user.email ?? email,
+            full_name: user.user_metadata?.full_name ?? null,
+            role: role ?? "student",
+          },
+          { onConflict: "id" }
+        )
+      }
+    }
+
     router.push(role === "employer" ? "/employer/dashboard" : "/student/dashboard")
   }
 
