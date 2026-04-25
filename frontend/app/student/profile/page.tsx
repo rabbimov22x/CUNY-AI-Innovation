@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useMemo, useState } from "react"
+import { useEffect, useMemo, useState, Suspense } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
 import { createClient } from "@/lib/supabase/client"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -12,7 +12,7 @@ import AppNav from "@/components/AppNav"
 
 const SUGGESTED_SKILLS = ["Frontend","Backend","UI/UX","React","Next.js","Node.js","TypeScript","Python","SQL","Data Analysis"]
 
-export default function StudentProfilePage() {
+function StudentProfileForm() {
   const supabase = useMemo(() => createClient(), [])
   const router = useRouter()
   const searchParams = useSearchParams()
@@ -132,6 +132,7 @@ export default function StudentProfilePage() {
     <div className="min-h-screen">
       <AppNav role="student" />
       <div className="max-w-2xl mx-auto pt-8 pb-12 px-6">
+
         <Card className="border-white/10 backdrop-blur-sm" style={{ background: "rgba(255,255,255,0.04)" }}>
           <CardHeader>
             <CardTitle className="text-white">{onboarding ? "Complete Your Profile" : "Edit Profile"}</CardTitle>
@@ -225,5 +226,13 @@ export default function StudentProfilePage() {
         </Card>
       </div>
     </div>
+  )
+}
+
+export default function StudentProfilePage() {
+  return (
+    <Suspense>
+      <StudentProfileForm />
+    </Suspense>
   )
 }

@@ -1,6 +1,7 @@
 import { Router, Request, Response } from "express"
 import { supabase } from "../lib/supabase/client"
-import { anthropic } from "../lib/claude"
+import Anthropic from "@anthropic-ai/sdk"
+const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
 
 const router = Router()
 
