@@ -6,7 +6,6 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
-import { GraduationCap } from "lucide-react"
 import { createClient } from "@/lib/supabase/client"
 
 export default function LoginPage() {
@@ -104,21 +103,25 @@ export default function LoginPage() {
               <div className="bg-red-50 border border-red-200 text-red-700 text-sm p-3 rounded-md">
                 {error}
               </div>
-            )}
-
-            <Button type="submit" className="w-full" disabled={loading}>
-              {loading ? "Logging in..." : "Log in"}
-            </Button>
-          </form>
-
-          <p className="text-center text-sm text-gray-500 mt-4">
-            Don&apos;t have an account?{" "}
-            <Link href="/auth/signup" className="text-blue-600 hover:underline">
-              Sign up
-            </Link>
-          </p>
-        </CardContent>
-      </Card>
+              <div>
+                <label className="block text-sm font-medium mb-1 text-white/60">Password</label>
+                <Input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required
+                  className="bg-white/5 border-white/10 text-white placeholder:text-white/25 focus:border-violet-500/50" />
+              </div>
+              {error && (
+                <div className="bg-red-900/20 border border-red-800/50 text-red-400 text-sm p-3 rounded-xl">{error}</div>
+              )}
+              <Button type="submit" className="w-full bg-white text-black hover:bg-violet-100 font-medium rounded-full" disabled={loading}>
+                {loading ? "Logging in..." : "Log in"}
+              </Button>
+            </form>
+            <p className="text-center text-sm text-white/35 mt-4">
+              Don&apos;t have an account?{" "}
+              <Link href="/auth/signup" className="text-violet-400 hover:text-violet-300">Sign up</Link>
+            </p>
+          </CardContent>
+        </Card>
+      </div>
     </div>
   )
 }

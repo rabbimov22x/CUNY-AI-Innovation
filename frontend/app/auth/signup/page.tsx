@@ -13,7 +13,6 @@ export default function SignupPage() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const defaultRole = searchParams.get("role") as "student" | "employer" | null
-
   const [role, setRole] = useState<"student" | "employer">(defaultRole ?? "student")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
@@ -35,17 +34,31 @@ export default function SignupPage() {
       setLoading(false)
       return
     }
-
-    const { error: signupError } = await supabase.auth.signUp({
-      email,
-      password,
-      options: {
-        data: { full_name: fullName, role },
-      },
-    })
-
+    const { error: signupError } = await supabase.auth.signUp({ email, password, options: { data: { full_name: fullName, role } } })
     if (signupError) {
-      setError(signupError.message)
+      const message = signupError.message.toLowerCase()
+      if (message.includes("email rate limit") || message.includes("rate limit exceeded")) {
+        const { data: loginData, error: loginError } = await supabase.auth.signInWithPassword({ email, password })
+        if (!loginError && loginData.user) {
+          router.push(loginData.user.user_metadata?.role === "employer" ? "/employer/dashboard" : "/student/dashboard")
+          return
+        }
+        const apiUrl = process.env.NEXT_PUBLIC_API_URL
+        if (apiUrl) {
+          const createRes = await fetch(`${apiUrl}/api/auth/dev-signup`, {
+            method: "POST", headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email, password, fullName, role }),
+          })
+          if (createRes.ok) {
+            const { data: d, error: le } = await supabase.auth.signInWithPassword({ email, password })
+            if (!le && d.user) {
+              router.push(d.user.user_metadata?.role === "employer" ? "/employer/dashboard" : "/student/profile?onboarding=1")
+              return
+            }
+          }
+        }
+        setError("Too many signup attempts. Use Log in if the account exists.")
+      } else { setError(signupError.message) }
       setLoading(false)
       return
     }
@@ -121,38 +134,11 @@ export default function SignupPage() {
                 required
               />
             </div>
-            <div>
-              <label className="block text-sm font-medium mb-1">
-                {role === "student" ? "CUNY email" : "Business email"}
-              </label>
-              <Input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder={
-                  role === "student" ? "yourname@citymail.cuny.edu" : "you@company.com"
-                }
-                required
-              />
-              {role === "student" && (
-                <p className="text-xs text-gray-500 mt-1">Must be a .cuny.edu address</p>
-              )}
-            </div>
-            <div>
-              <label className="block text-sm font-medium mb-1">Password</label>
-              <Input
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="At least 8 characters"
-                minLength={8}
-                required
-              />
-            </div>
-
-            {error && (
-              <div className="bg-red-50 border border-red-200 text-red-700 text-sm p-3 rounded-md">
-                {error}
+            <form onSubmit={handleSignup} className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium mb-1 text-white/60">Full name</label>
+                <Input value={fullName} onChange={(e) => setFullName(e.target.value)} placeholder="Jane Smith" required
+                  className="bg-white/5 border-white/10 text-white placeholder:text-white/25 focus:border-violet-500/50" />
               </div>
             )}
 

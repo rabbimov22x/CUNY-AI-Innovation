@@ -15,6 +15,7 @@ export interface StudentProfile extends Profile {
   major: string
   skills: string[]
   bio: string
+  resume_url?: string
   portfolio_url?: string
   rating: number
   completed_projects: number
