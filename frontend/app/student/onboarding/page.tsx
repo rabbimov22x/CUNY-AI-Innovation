@@ -106,7 +106,7 @@ export default function StudentOnboarding() {
   }
 
   async function handleFinish() {
-    await saveAndNavigate("/student/dashboard")
+    await saveAndNavigate("/student/dashboard?onboarding=done")
   }
 
   async function handleSkip() {

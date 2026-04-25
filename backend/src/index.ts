@@ -4,6 +4,7 @@ import cors from "cors"
 import pitchCoachRouter from "./routes/pitchCoach"
 import briefQualityRouter from "./routes/briefQuality"
 import matchRouter from "./routes/match"
+import studentMatchRouter from "./routes/studentMatch"
 import paymentsRouter from "./routes/payments"
 import authRouter from "./routes/auth"
 import skillAssistRouter from "./routes/skillAssist"
@@ -17,6 +18,7 @@ app.use(express.json())
 app.use("/api/pitch-coach", pitchCoachRouter)
 app.use("/api/brief-quality", briefQualityRouter)
 app.use("/api/match", matchRouter)
+app.use("/api/student-match", studentMatchRouter)
 app.use("/api/payments", paymentsRouter)
 app.use("/api/auth", authRouter)
 app.use("/api/skill-assist", skillAssistRouter)

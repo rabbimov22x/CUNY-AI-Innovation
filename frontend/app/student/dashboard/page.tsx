@@ -2,7 +2,6 @@ import { createClient } from "@/lib/supabase/server"
 import { redirect } from "next/navigation"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
 import {
   GraduationCap,
   Bell,
@@ -12,11 +11,11 @@ import {
   Star,
   Sparkles,
   Briefcase,
-  LayoutDashboard,
   FolderOpen,
   ShoppingBag,
   CheckCircle2,
   AlertCircle,
+  LayoutDashboard,
 } from "lucide-react"
 
 export default async function StudentDashboard({
@@ -36,10 +35,11 @@ export default async function StudentDashboard({
     .eq("id", user.id)
     .single()
 
-  // Only redirect to onboarding if the user hasn't skipped it
-  const skipped = searchParams?.onboarding === "skipped"
-  const isNewUser = !profile?.cuny_school || !profile?.major || !profile?.skills?.length
-  if (isNewUser && !skipped) redirect("/student/onboarding")
+  const bypassOnboarding =
+    searchParams?.onboarding === "skipped" || searchParams?.onboarding === "done"
+  const isNewUser =
+    !profile?.cuny_school || !profile?.major || !profile?.skills?.length
+  if (isNewUser && !bypassOnboarding) redirect("/student/onboarding")
 
   const { data: matches } = await supabase
     .from("matches")
@@ -66,52 +66,98 @@ export default async function StudentDashboard({
     0
   )
 
-  return (
-    <div className="min-h-screen bg-[#faf8ff] pb-24">
+  const navLinks = [
+    { href: "/student/dashboard", label: "Dashboard", icon: LayoutDashboard },
+    { href: "/student/brief", label: "Market", icon: ShoppingBag },
+    { href: "/student/workspace", label: "Workspace", icon: Briefcase },
+    { href: "/student/portfolio", label: "Portfolio", icon: FolderOpen },
+  ]
 
-      {/* Top bar */}
-      <div className="bg-white border-b border-[#e1e2ed] sticky top-0 z-40">
-        <div className="container mx-auto px-4 h-16 flex items-center justify-between max-w-2xl">
-          <div className="flex items-center gap-2 font-bold text-lg text-[#004ac6]">
-            <GraduationCap className="h-5 w-5" />
-            StartNow
-          </div>
-          <div className="flex items-center gap-3">
-            {pendingMatches.length > 0 && (
-              <div className="relative">
+  return (
+    <div className="min-h-screen bg-[#faf8ff]">
+
+      {/* Top navigation */}
+      <header className="bg-white border-b border-[#e1e2ed] sticky top-0 z-40">
+        <div className="container mx-auto px-4 max-w-4xl">
+          <div className="flex items-center justify-between h-16">
+
+            {/* Logo */}
+            <Link
+              href="/student/dashboard"
+              className="flex items-center gap-2 font-bold text-lg text-[#004ac6] shrink-0"
+            >
+              <GraduationCap className="h-5 w-5" />
+              StartNow
+            </Link>
+
+            {/* Nav links — hidden on mobile */}
+            <nav className="hidden sm:flex items-center gap-1">
+              {navLinks.map(({ href, label, icon: Icon }) => (
+                <Link
+                  key={href}
+                  href={href}
+                  className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium text-[#434655] hover:bg-[#f3f3fe] hover:text-[#004ac6] transition-colors"
+                >
+                  <Icon className="h-4 w-4" />
+                  {label}
+                </Link>
+              ))}
+            </nav>
+
+            {/* Right side — bell + avatar */}
+            <div className="flex items-center gap-3">
+              <Link href="/student/brief" className="relative">
                 <Bell className="h-5 w-5 text-[#434655]" />
-                <span className="absolute -top-1 -right-1 h-4 w-4 bg-[#004ac6] text-white text-[10px] font-bold rounded-full flex items-center justify-center">
-                  {pendingMatches.length}
-                </span>
+                {pendingMatches.length > 0 && (
+                  <span className="absolute -top-1 -right-1 h-4 w-4 bg-[#004ac6] text-white text-[10px] font-bold rounded-full flex items-center justify-center">
+                    {pendingMatches.length}
+                  </span>
+                )}
+              </Link>
+              <div className="h-9 w-9 rounded-full bg-[#2563eb] flex items-center justify-center text-white text-sm font-bold shrink-0">
+                {initials}
               </div>
-            )}
-            <div className="h-9 w-9 rounded-full bg-[#2563eb] flex items-center justify-center text-white text-sm font-bold">
-              {initials}
             </div>
           </div>
-        </div>
-      </div>
 
-      <div className="container mx-auto px-4 py-6 max-w-2xl space-y-5">
-
-        {/* Greeting + verification badge */}
-        <div>
-          <div className="flex items-center gap-3 flex-wrap">
-            <h1 className="text-2xl font-bold text-[#191b23]">Hello, {firstName}</h1>
-            {profile?.verified && (
-              <span className="flex items-center gap-1 text-xs font-semibold text-green-700 bg-green-50 border border-green-200 rounded-full px-2.5 py-1">
-                <CheckCircle2 className="h-3.5 w-3.5" />
-                Verified Student
-              </span>
-            )}
+          {/* Mobile nav — scrollable row below the header */}
+          <div className="sm:hidden flex items-center gap-1 pb-2 overflow-x-auto">
+            {navLinks.map(({ href, label, icon: Icon }) => (
+              <Link
+                key={href}
+                href={href}
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-[#434655] hover:bg-[#f3f3fe] hover:text-[#004ac6] transition-colors whitespace-nowrap"
+              >
+                <Icon className="h-3.5 w-3.5" />
+                {label}
+              </Link>
+            ))}
           </div>
-          <p className="text-[#434655] text-sm mt-0.5">
-            {profile?.cuny_school} · {profile?.major}
-          </p>
+        </div>
+      </header>
+
+      <div className="container mx-auto px-4 py-6 max-w-4xl space-y-5">
+
+        {/* Greeting + verification */}
+        <div className="flex items-start justify-between flex-wrap gap-3">
+          <div>
+            <div className="flex items-center gap-3 flex-wrap">
+              <h1 className="text-2xl font-bold text-[#191b23]">Hello, {firstName}</h1>
+              {profile?.verified && (
+                <span className="flex items-center gap-1 text-xs font-semibold text-green-700 bg-green-50 border border-green-200 rounded-full px-2.5 py-1">
+                  <CheckCircle2 className="h-3.5 w-3.5" />
+                  Verified Student
+                </span>
+              )}
+            </div>
+            <p className="text-[#434655] text-sm mt-0.5">
+              {profile?.cuny_school} · {profile?.major}
+            </p>
+          </div>
         </div>
 
         {/* Stats row */}
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
           <div className="bg-white rounded-2xl border border-[#e1e2ed] p-4">
             <p className="text-xs font-semibold text-[#737686] uppercase tracking-wide mb-1">
               Total Earnings
@@ -125,23 +171,55 @@ export default async function StudentDashboard({
           </div>
 
           <Link href="/student/portfolio" className="block">
-            <div className="bg-[#2563eb] rounded-2xl p-4 h-full flex flex-col justify-between cursor-pointer hover:bg-[#1d4ed8] transition-colors">
+            <div className="bg-[#2563eb] rounded-2xl p-4 h-full flex flex-col justify-between cursor-pointer hover:bg-[#1d4ed8] transition-colors min-h-[100px]">
               <p className="text-sm font-semibold text-white/90">My Portfolio</p>
-              <div className="flex items-center justify-between mt-4">
-                <div className="h-9 w-9 rounded-full bg-white/20 flex items-center justify-center">
+              <div className="flex items-center justify-between mt-3">
+                <div className="h-8 w-8 rounded-full bg-white/20 flex items-center justify-center">
                   <FolderOpen className="h-4 w-4 text-white" />
                 </div>
                 <ArrowRight className="h-5 w-5 text-white" />
               </div>
             </div>
           </Link>
+
+          {/* Trust strip as third card on wider screens */}
+          <div className="hidden sm:flex bg-white rounded-2xl border border-[#e1e2ed] p-4 flex-col justify-between">
+            <p className="text-xs font-semibold text-[#737686] uppercase tracking-wide mb-3">
+              Reputation
+            </p>
+            <div className="space-y-2">
+              <div className="flex items-center justify-between text-sm">
+                <span className="flex items-center gap-1.5 text-[#434655]">
+                  <Star className="h-4 w-4 text-yellow-500 fill-yellow-500" />
+                  Rating
+                </span>
+                <span className="font-bold text-[#191b23]">
+                  {profile?.rating ? Number(profile.rating).toFixed(1) : "—"}
+                </span>
+              </div>
+              <div className="flex items-center justify-between text-sm">
+                <span className="flex items-center gap-1.5 text-[#434655]">
+                  <AlertCircle className="h-4 w-4 text-gray-400" />
+                  Strikes
+                </span>
+                <span className="font-bold text-[#191b23]">{profile?.strikes ?? 0}</span>
+              </div>
+              <div className="flex items-center justify-between text-sm">
+                <span className="flex items-center gap-1.5 text-[#434655]">
+                  <Briefcase className="h-4 w-4 text-[#004ac6]" />
+                  Active
+                </span>
+                <span className="font-bold text-[#191b23]">{activeMatches.length}</span>
+              </div>
+            </div>
+          </div>
         </div>
 
-        {/* Trust indicators */}
-        <div className="flex items-center gap-4 px-1">
+        {/* Trust strip — mobile only */}
+        <div className="flex sm:hidden items-center gap-4 px-1">
           <div className="flex items-center gap-1.5 text-sm text-[#434655]">
             <Star className="h-4 w-4 text-yellow-500 fill-yellow-500" />
-            <span className="font-semibold">{profile?.rating ? profile.rating.toFixed(1) : "—"}</span>
+            <span className="font-semibold">{profile?.rating ? Number(profile.rating).toFixed(1) : "—"}</span>
             <span className="text-[#737686]">rating</span>
           </div>
           <div className="h-4 w-px bg-[#e1e2ed]" />
@@ -185,7 +263,7 @@ export default async function StudentDashboard({
                 {pendingMatches.length} new
               </span>
             </div>
-            <div className="space-y-3">
+            <div className="grid sm:grid-cols-2 gap-3">
               {pendingMatches.map((match: any) => (
                 <div
                   key={match.id}
@@ -234,7 +312,7 @@ export default async function StudentDashboard({
                       </div>
                       <Button size="sm" className="bg-[#004ac6] hover:bg-[#003ea8] text-white rounded-xl" asChild>
                         <Link href={`/student/brief/${match.brief_id}`}>
-                          View Project <ArrowRight className="ml-1 h-3 w-3" />
+                          View <ArrowRight className="ml-1 h-3 w-3" />
                         </Link>
                       </Button>
                     </div>
@@ -255,10 +333,14 @@ export default async function StudentDashboard({
               </Link>
             </div>
             <div className="bg-white rounded-2xl border border-[#e1e2ed] divide-y divide-[#f3f3fe]">
-              {activeMatches.map((match: any, i: number) => {
-                const progress = match.progress_percent ?? Math.floor(Math.random() * 60 + 20)
+              {activeMatches.map((match: any) => {
+                const progress = match.progress_percent ?? 0
                 return (
-                  <Link key={match.id} href={`/student/workspace/${match.id}`} className="block p-4 hover:bg-[#f3f3fe] transition-colors first:rounded-t-2xl last:rounded-b-2xl">
+                  <Link
+                    key={match.id}
+                    href={`/student/workspace/${match.id}`}
+                    className="block p-4 hover:bg-[#f3f3fe] transition-colors first:rounded-t-2xl last:rounded-b-2xl"
+                  >
                     <div className="flex items-start justify-between mb-2">
                       <div className="flex-1 pr-4">
                         <h3 className="font-semibold text-[#191b23] text-sm">{match.briefs?.title}</h3>
@@ -309,36 +391,13 @@ export default async function StudentDashboard({
             className="bg-white text-[#004ac6] hover:bg-[#eeefff] font-bold rounded-xl shrink-0 w-full sm:w-auto"
             asChild
           >
-            <Link href="/student/brief">
+            <Link href="/student/swipe">
               <Sparkles className="mr-2 h-4 w-4" />
               Get Matches
             </Link>
           </Button>
         </div>
-      </div>
 
-      {/* Bottom nav */}
-      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-[#e1e2ed] z-40">
-        <div className="container mx-auto max-w-2xl px-4">
-          <div className="flex items-center justify-around h-16">
-            <Link href="/student/dashboard" className="flex flex-col items-center gap-1 text-[#004ac6]">
-              <LayoutDashboard className="h-5 w-5" />
-              <span className="text-[10px] font-semibold">Dashboard</span>
-            </Link>
-            <Link href="/student/brief" className="flex flex-col items-center gap-1 text-[#737686] hover:text-[#004ac6] transition-colors">
-              <ShoppingBag className="h-5 w-5" />
-              <span className="text-[10px] font-medium">Market</span>
-            </Link>
-            <Link href="/student/workspace" className="flex flex-col items-center gap-1 text-[#737686] hover:text-[#004ac6] transition-colors">
-              <Briefcase className="h-5 w-5" />
-              <span className="text-[10px] font-medium">Workspace</span>
-            </Link>
-            <Link href="/student/portfolio" className="flex flex-col items-center gap-1 text-[#737686] hover:text-[#004ac6] transition-colors">
-              <FolderOpen className="h-5 w-5" />
-              <span className="text-[10px] font-medium">Portfolio</span>
-            </Link>
-          </div>
-        </div>
       </div>
     </div>
   )
