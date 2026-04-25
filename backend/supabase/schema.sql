@@ -1,17 +1,21 @@
 -- Run this in your Supabase SQL editor to set up the database
 
+-- Required for gen_random_uuid()
+create extension if not exists pgcrypto;
+
 -- Profiles table (extends Supabase auth.users)
 create table if not exists profiles (
   id uuid references auth.users(id) on delete cascade primary key,
   email text not null,
   full_name text,
-  role text check (role in ('student', 'employer')) not null,
+  role text not null check (role in ('student', 'employer')),
   avatar_url text,
   -- Student fields
   cuny_school text,
   major text,
   skills text[] default '{}',
   bio text,
+  resume_url text,
   -- Employer fields
   company_name text,
   website text,
@@ -32,7 +36,11 @@ begin
     new.email,
     new.raw_user_meta_data->>'full_name',
     new.raw_user_meta_data->>'role'
-  );
+  )
+  on conflict (id) do update
+    set email = excluded.email,
+        full_name = excluded.full_name,
+        role = excluded.role;
   return new;
 end;
 $$ language plpgsql security definer;
@@ -131,6 +139,7 @@ alter table reviews enable row level security;
 
 -- Profiles: users can read all, but only update their own
 create policy "profiles_select" on profiles for select using (true);
+create policy "profiles_insert" on profiles for insert with check (auth.uid() = id);
 create policy "profiles_update" on profiles for update using (auth.uid() = id);
 
 -- Briefs: anyone can read open briefs, employers manage their own

@@ -50,6 +50,23 @@ In that sense, StartNow works like a marketplace engine for upward mobility: mat
 - npm or yarn
 - A Supabase project (for the database and auth)
 
+### Supabase Setup
+
+The app uses Supabase for both authentication and persistent user data.
+
+1. Create a Supabase project.
+2. In the Supabase dashboard, enable email/password auth.
+3. Set your local site URL and redirect URLs to match the app, for example `http://localhost:3000`.
+4. Open the Supabase SQL editor and run `backend/supabase/schema.sql`.
+
+That schema does three important things:
+
+- Creates the `profiles` table for app-specific user data.
+- Copies `auth.users` records into `profiles` through the `handle_new_user` trigger.
+- Enables row level security so users only modify their own profile data.
+
+For local development, if you want users to log in immediately after signup, turn off email confirmation in Supabase Auth. If email confirmation stays on, the signup flow will ask users to verify their email before logging in.
+
 ### Installation
 
 Clone the repository and install dependencies for both the frontend and backend:

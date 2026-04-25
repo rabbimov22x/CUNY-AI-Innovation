@@ -2,7 +2,6 @@
 
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { GraduationCap } from "lucide-react"
 
 export default function Navbar() {
   return (
@@ -12,11 +11,31 @@ export default function Navbar() {
           <GraduationCap className="h-6 w-6" />
           StartNow
         </Link>
-        <div className="flex items-center gap-3">
-          <Button variant="ghost" asChild>
+
+        {/* Pill nav */}
+        <div className="hidden md:flex items-center gap-0.5 bg-white/5 border border-white/10 rounded-full px-1.5 py-1.5">
+          {[
+            { label: "For Students", href: "#for-students" },
+            { label: "For Employers", href: "#for-employers" },
+            { label: "How it Works", href: "#how-it-works" },
+          ].map(({ label, href }) => (
+            <Link
+              key={label}
+              href={href}
+              className="text-sm text-white/50 hover:text-white px-4 py-1.5 rounded-full hover:bg-white/8 transition-all"
+            >
+              {label}
+            </Link>
+          ))}
+        </div>
+
+        <div className="flex items-center gap-2">
+          <Button variant="ghost" asChild
+            className="text-white/50 hover:text-white hover:bg-white/8 rounded-full">
             <Link href="/auth/login">Log in</Link>
           </Button>
-          <Button asChild>
+          <Button asChild
+            className="bg-white text-black hover:bg-violet-100 font-medium rounded-full px-5">
             <Link href="/auth/signup">Get started</Link>
           </Button>
         </div>
